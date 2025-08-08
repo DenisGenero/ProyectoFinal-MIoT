@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# VSCode settings
+.vscode/
+
+# Python environment files
+*.env
+.env.*
+
+# MySQL dump or config files
+*.sql
+
+# Logs
+*.log
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# PyInstaller
+dist/
+build/
+*.spec
