@@ -1,5 +1,3 @@
-# app/crud/dispositivos.py
-
 from sqlalchemy.orm import Session
 from app.models.dispositivos import Dispositivo
 from app.schemas.dispositivos import DispositivoCreate

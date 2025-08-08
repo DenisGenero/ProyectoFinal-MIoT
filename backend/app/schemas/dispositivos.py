@@ -1,5 +1,3 @@
-# app/schemas/dispositivos.py
-
 from pydantic import BaseModel
 from datetime import time
 

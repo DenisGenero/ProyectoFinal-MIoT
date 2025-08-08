@@ -35,4 +35,4 @@ requirements.txt       # Dependencias del proyecto
 ## Comandos útiles
 - **Instalar dependencias:** pip install -r requirements.txt
 - **Levantar el servidor:** uvicorn app.main:app --reload  
-  *(--reload: reinicia el servidor automáticamente al guardar cambios)*
+  *(--reload: opcional --> reinicia el servidor automáticamente al guardar cambios)*

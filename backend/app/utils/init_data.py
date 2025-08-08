@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError
+#from sqlalchemy.exc import IntegrityError
 from datetime import datetime, time, UTC
 from app.models.roles import Rol
 from app.models.usuarios import Usuario
@@ -33,7 +33,7 @@ def insertar_datos_prueba(db: Session):
                 password="1234",
                 fecha_alta=datetime.now(UTC),
                 ultimo_acceso=datetime.now(UTC),
-                id_rol=2,
+                id_rol=i % 2,
                 estado=True
             ) for i in range(10)
         ]
@@ -59,11 +59,14 @@ def insertar_datos_prueba(db: Session):
     # === Asignar usuarios a tambos ===
     if not db.query(UsuarioTambo).first():
         asignaciones = [
-            UsuarioTambo(id_usuario=1, id_tambo=1),         # 1 usuario
-            UsuarioTambo(id_usuario=2, id_tambo=2),         # 3 usuarios
+            UsuarioTambo(id_usuario=1, id_tambo=1),         # Primer tambo
+            UsuarioTambo(id_usuario=2, id_tambo=1),         
+            UsuarioTambo(id_usuario=2, id_tambo=2),         # Segundo tambo
             UsuarioTambo(id_usuario=3, id_tambo=2),
             UsuarioTambo(id_usuario=4, id_tambo=2),
-            UsuarioTambo(id_usuario=5, id_tambo=3),         # 6 usuarios
+            UsuarioTambo(id_usuario=5, id_tambo=3),         # Tercer tambo
+            UsuarioTambo(id_usuario=4, id_tambo=3),
+            UsuarioTambo(id_usuario=2, id_tambo=3),
             UsuarioTambo(id_usuario=6, id_tambo=3),
             UsuarioTambo(id_usuario=7, id_tambo=3),
             UsuarioTambo(id_usuario=8, id_tambo=3),

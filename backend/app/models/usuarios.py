@@ -1,5 +1,3 @@
-# app/models/usuarios.py
-
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from app.models.roles import Rol

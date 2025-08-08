@@ -1,5 +1,3 @@
-# app/schemas/usuarios.py
-
 from datetime import datetime, UTC
 from pydantic import BaseModel, EmailStr, Field
 
