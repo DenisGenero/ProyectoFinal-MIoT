@@ -33,7 +33,7 @@ def insertar_datos_prueba(db: Session):
                 password="1234",
                 fecha_alta=datetime.now(UTC),
                 ultimo_acceso=datetime.now(UTC),
-                id_rol=i % 2,
+                id_rol= 1 + (i % 2),
                 estado=True
             ) for i in range(10)
         ]
