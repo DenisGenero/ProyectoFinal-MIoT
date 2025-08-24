@@ -11,5 +11,5 @@ class Tambo(Base):
     ubicacion = Column(String(255), nullable=False)
     estado = Column(Boolean, default=True)
 
-    usuarios = relationship("Usuario", secondary="usuarios_tambos", back_populates="tambos")
+    usuarios_tambos_roles = relationship("UsuarioTamboRol", back_populates="tambo")
     comederos = relationship("Comedero", back_populates="tambo", cascade="all, delete-orphan")

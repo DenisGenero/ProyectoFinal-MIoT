@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.orm import relationship
 from app.database.database import Base
 
 class Rol(Base):
@@ -8,3 +9,4 @@ class Rol(Base):
     nombre = Column(String(100), unique=True, nullable=False)
     es_admin = Column(Boolean, nullable=False)
 
+    usuarios_tambos_roles = relationship("UsuarioTamboRol", back_populates="rol")

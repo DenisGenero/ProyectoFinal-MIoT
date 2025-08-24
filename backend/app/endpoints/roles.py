@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database.database import get_db
-from app.schemas.roles import RolCreate, RolRead
+from app.schemas.roles import RolCreate, RolRead, UpdateRol
 from app.crud import roles as crud_roles
 
 router = APIRouter()
@@ -20,6 +20,11 @@ def obtener_rol(rol_id: int, db: Session = Depends(get_db)):
 @router.post("/roles/", response_model=RolRead)
 def crear_rol(rol: RolCreate, db: Session = Depends(get_db)):
     return crud_roles.create_rol(db, rol)
+
+# Actualizar un rol
+@router.put("/roles/{rol_id}", response_model=RolRead)
+def actualizar_rol(rol_id: int, rol: UpdateRol, db: Session = Depends(get_db)):
+    return crud_roles.update_rol(db, rol_id, rol)
 
 @router.delete("/roles/{rol_id}", response_model=RolRead)
 def eliminar_rol(rol_id: int, db: Session = Depends(get_db)):

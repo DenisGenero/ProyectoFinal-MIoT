@@ -1,18 +1,18 @@
 import pymysql
+import app.config as config
 
 def crear_base_datos():
-    """Crea la base de datos agro_iot si no existe."""
     conexion = pymysql.connect(
-        host="localhost",
-        user="root",
-        password=""
+        host=config.DB_HOST,
+        user=config.DB_USER,
+        password=config.DB_PASSWORD
     )
     cursor = conexion.cursor()
     cursor.execute(
-        "CREATE DATABASE IF NOT EXISTS agro_iot CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+        config.CREATE_DB_CMD
     )
     conexion.close()
-    print("Base de datos 'agro_iot' verificada/creada correctamente.")
+    print("Base de datos '" +  (config.DB_NAME) + "' verificada/creada correctamente.")
 
 # Si se ejecuta directamente el archivo
 if __name__ == "__main__":

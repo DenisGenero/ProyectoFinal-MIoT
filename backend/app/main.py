@@ -10,16 +10,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Crea la base de datos si no existe
+# Crear la base de datos si no existe
 crear_base_datos()
 
-# Crea las tablas si no existen
+# Crear las tablas si no existen
 Base.metadata.create_all(bind=engine)
 
 # Insertar datos de prueba
 with SessionLocal() as db:
     insertar_datos_prueba(db)
 
-# Incluye rutas
+# Incluir rutas
 app.include_router(endpoints_router)
 

@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class RolBase(BaseModel):
     nombre: str
@@ -12,3 +13,11 @@ class RolRead(RolBase):
 
     class Config:
         from_attributes = True
+
+class UpdateRol(BaseModel):
+    nombre: Optional[str] | None
+    es_admin: Optional[bool] | None
+
+    class config:
+        extra= "ignore"
+

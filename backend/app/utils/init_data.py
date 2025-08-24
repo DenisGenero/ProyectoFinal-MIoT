@@ -1,11 +1,10 @@
 from sqlalchemy.orm import Session
-#from sqlalchemy.exc import IntegrityError
 from datetime import datetime, time, UTC
 from app.models.roles import Rol
 from app.models.usuarios import Usuario
 from app.models.tambos import Tambo
 from app.models.comederos import Comedero
-from app.models.usuarios_tambos import UsuarioTambo
+from app.models.usuarios_tambos_roles import UsuarioTamboRol
 from app.models.dispositivos import Dispositivo
 from app.models.imagenes import Imagen
 
@@ -20,8 +19,8 @@ def insertar_datos_prueba(db: Session):
         db.add_all(roles)
         db.commit()
         print("Roles insertados.")
-    else:
-        print("Roles ya existen.")
+    #else:
+    #    print("Roles ya existen.")
 
     # === Insertar usuarios ===
     if not db.query(Usuario).first():
@@ -33,15 +32,14 @@ def insertar_datos_prueba(db: Session):
                 password="1234",
                 fecha_alta=datetime.now(UTC),
                 ultimo_acceso=datetime.now(UTC),
-                id_rol= 1 + (i % 2),
                 estado=True
             ) for i in range(10)
         ]
         db.add_all(usuarios)
         db.commit()
         print("Usuarios insertados.")
-    else:
-        print("Usuarios ya existen.")
+    #else:
+    #    print("Usuarios ya existen.")
 
     # === Insertar tambos ===
     if not db.query(Tambo).first():
@@ -53,31 +51,31 @@ def insertar_datos_prueba(db: Session):
         db.add_all(tambos)
         db.commit()
         print("Tambos insertados.")
-    else:
-        print("Tambos ya existen.")
+    #else:
+    #    print("Tambos ya existen.")
 
-    # === Asignar usuarios a tambos ===
-    if not db.query(UsuarioTambo).first():
+    # === Asignar usuarios a tambos con roles ===
+    if not db.query(UsuarioTamboRol).first():
         asignaciones = [
-            UsuarioTambo(id_usuario=1, id_tambo=1),         # Primer tambo
-            UsuarioTambo(id_usuario=2, id_tambo=1),         
-            UsuarioTambo(id_usuario=2, id_tambo=2),         # Segundo tambo
-            UsuarioTambo(id_usuario=3, id_tambo=2),
-            UsuarioTambo(id_usuario=4, id_tambo=2),
-            UsuarioTambo(id_usuario=5, id_tambo=3),         # Tercer tambo
-            UsuarioTambo(id_usuario=4, id_tambo=3),
-            UsuarioTambo(id_usuario=2, id_tambo=3),
-            UsuarioTambo(id_usuario=6, id_tambo=3),
-            UsuarioTambo(id_usuario=7, id_tambo=3),
-            UsuarioTambo(id_usuario=8, id_tambo=3),
-            UsuarioTambo(id_usuario=9, id_tambo=3),
-            UsuarioTambo(id_usuario=10, id_tambo=3),
+            UsuarioTamboRol(id_usuario=1, id_tambo=1, id_rol=1),
+            UsuarioTamboRol(id_usuario=2, id_tambo=1, id_rol=2),         
+            UsuarioTamboRol(id_usuario=2, id_tambo=2, id_rol=3),         
+            UsuarioTamboRol(id_usuario=3, id_tambo=2, id_rol=2),
+            UsuarioTamboRol(id_usuario=4, id_tambo=2, id_rol=1),
+            UsuarioTamboRol(id_usuario=5, id_tambo=3, id_rol=2),
+            UsuarioTamboRol(id_usuario=4, id_tambo=3, id_rol=3),
+            UsuarioTamboRol(id_usuario=2, id_tambo=3, id_rol=2),
+            UsuarioTamboRol(id_usuario=6, id_tambo=3, id_rol=1),
+            UsuarioTamboRol(id_usuario=7, id_tambo=3, id_rol=2),
+            UsuarioTamboRol(id_usuario=8, id_tambo=3, id_rol=2),
+            UsuarioTamboRol(id_usuario=9, id_tambo=3, id_rol=3),
+            UsuarioTamboRol(id_usuario=10, id_tambo=3, id_rol=2),
         ]
         db.add_all(asignaciones)
         db.commit()
         print("Asignaciones de usuarios a tambos insertadas.")
-    else:
-        print("Asignaciones ya existen.")
+    #else:
+    #    print("Asignaciones ya existen.")
 
     # === Insertar comederos ===
     if not db.query(Comedero).first():
@@ -92,8 +90,8 @@ def insertar_datos_prueba(db: Session):
         db.add_all(comederos)
         db.commit()
         print("Comederos insertados.")
-    else:
-        print("Comederos ya existen.")
+    #else:
+    #    print("Comederos ya existen.")
 
     # === Insertar dispositivos ===
     if not db.query(Dispositivo).first():
@@ -131,8 +129,8 @@ def insertar_datos_prueba(db: Session):
         db.add_all(dispositivos)
         db.commit()
         print("Dispositivos insertados.")
-    else:
-        print("Dispositivos ya existen.")
+    #else:
+    #    print("Dispositivos ya existen.")
 
     # === Insertar imágenes ===
     if not db.query(Imagen).first():
@@ -148,5 +146,5 @@ def insertar_datos_prueba(db: Session):
         db.add_all(imagenes)
         db.commit()
         print("Imágenes insertadas.")
-    else:
-        print("Imágenes ya existen.")
+    #else:
+    #    print("Imágenes ya existen.")

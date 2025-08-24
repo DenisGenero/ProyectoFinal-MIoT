@@ -30,14 +30,22 @@ app/
 ├── endpoints/      # Rutas de la API  
 ├── models/           # clases ORM de SQLAlchemy que representan las tablas de la db y sus relaciones.  
 ├── schemas/         # Modelos Pydantic para validación  
-├── utils/                # Script para insertar datos de prueba  
+├── utils/                # Scripts para crear db (si no existe) e insertar datos de prueba  
 │  
 ├── \_\_init__.py         # Marca al directorio actual como módulo de Python  
 ├── main.py            # Archivo principal: arranca el servidor y monta rutas   
 │  
 requirements.txt       # Dependencias del proyecto
 
-## Comandos utiles  
+## Comandos utiles 
+#### Archivo necesario:
+-**Crear un archivo ".env" (sin nombre) asignando valores a los siguientes parámetros:**  
+DB_HOST=  
+DB_PORT=  
+DB_USER=  
+DB_PASSWORD=  
+DB_NAME=  
+
 #### Recomendación:
 - **Crear entorno virtual:** python3 -m venv .venv  
 - **Activar el entorno virtual (bash):** source ./venv/Scripts/activate  

@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.orm import relationship
-from app.models.roles import Rol
 from app.database.database import Base
 
 class Usuario(Base):
@@ -13,8 +12,6 @@ class Usuario(Base):
     password = Column(String(50), nullable=False)
     fecha_alta = Column(DateTime)
     ultimo_acceso = Column(DateTime)
-    id_rol = Column(Integer, ForeignKey("roles.id"))
     estado = Column(Boolean, nullable=True)
 
-    rol = relationship("Rol", backref="usuarios")
-    tambos = relationship("Tambo", secondary="usuarios_tambos", back_populates="usuarios")
+    usuarios_tambos_roles = relationship("UsuarioTamboRol", back_populates="usuario", cascade="all, delete-orphan")
