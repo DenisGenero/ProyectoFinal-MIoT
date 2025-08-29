@@ -15,9 +15,9 @@ class RolRead(RolBase):
         from_attributes = True
 
 class UpdateRol(BaseModel):
-    nombre: Optional[str] | None
-    es_admin: Optional[bool] | None
+    nombre: Optional[str] = None
+    es_admin: Optional[bool] = None
 
-    class config:
+    class Config:
         extra= "ignore"
 

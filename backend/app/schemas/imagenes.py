@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
 class ImagenBase(BaseModel):
     id_dispositivo: int
@@ -14,3 +15,10 @@ class ImagenRead(ImagenBase):
 
     class Config:
         from_attributes = True
+
+class UpdateImagen(BaseModel):
+    path_imagen: Optional[str] = None
+    #fecha: Optinal[datetime] | None
+
+    class Config:
+        extra= "ignore"

@@ -5,7 +5,6 @@ class TamboBase(BaseModel):
     nombre: str
     descripcion: Optional[str] = None
     ubicacion: str
-    estado: bool = True
 
 class TamboCreate(TamboBase):
     pass

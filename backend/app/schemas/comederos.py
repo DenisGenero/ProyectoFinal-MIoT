@@ -5,7 +5,6 @@ class ComederoBase(BaseModel):
     nombre: str
     descripcion: Optional[str] = None
     ubicacion: str
-    estado: bool
 
 class ComederoCreate(ComederoBase):
     id_tambo: int
@@ -16,3 +15,11 @@ class ComederoRead(ComederoBase):
 
     class Config:
         from_attributes = True
+
+class UpdateComedero(BaseModel):
+    nombre: Optional[str] = None
+    descripcion: Optional[str] = None
+    ubicacion: Optional[str] = None
+
+    class Config:
+        extra= "ignore"

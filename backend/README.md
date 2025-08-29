@@ -39,7 +39,7 @@ requirements.txt       # Dependencias del proyecto
 
 ## Comandos utiles 
 #### Archivo necesario:
--**Crear un archivo ".env" (sin nombre) asignando valores a los siguientes parámetros:**  
+- **Crear un archivo ".env" (sin nombre) asignando valores a los siguientes parámetros:**  
 DB_HOST=  
 DB_PORT=  
 DB_USER=  

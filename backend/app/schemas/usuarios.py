@@ -1,25 +1,19 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field
-from zoneinfo import ZoneInfo
+from pydantic import BaseModel, EmailStr
 from typing import Optional
-
-UY_TZ = ZoneInfo("America/Montevideo")
 
 class UsuarioBase(BaseModel):
     nombres: str
     apellidos: str
     email: EmailStr
-    estado: bool = True
 
 class UsuarioCreate(UsuarioBase):
     password: str
-    fecha_alta: datetime = Field(default_factory=lambda: datetime.now(UY_TZ))
-    ultimo_acceso: datetime = Field(default_factory=lambda: datetime.now(UY_TZ))
-
 
 class UsuarioRead(UsuarioBase):
     id: int
-    ultimo_acceso: Optional[datetime] = None
+    fecha_alta: datetime
+    ultimo_acceso: datetime
 
     class Config:
         from_attributes = True
@@ -30,5 +24,5 @@ class UsuarioUpdate(BaseModel):
     email: Optional[EmailStr] = None
     password: Optional[str] = None
 
-    class config:
+    class Config:
         extra = "ignore"  # "ignore" ignora los demás campos;  "forbid" --> arroja error

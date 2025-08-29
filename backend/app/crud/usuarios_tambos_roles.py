@@ -27,6 +27,9 @@ def asociar_usuario_tambo_rol(db: Session, asociacion: UsuarioTamboRolCreate):
     rol = db.query(Rol).filter(Rol.id == asociacion.id_rol).first()
     if not rol:
         raise HTTPException(status_code=404, detail="Rol no encontrado")
+    if rol.estado == False:
+        raise HTTPException(status_code=400, detail="Rol ianctivo")
+
 
     # Buscar si ya existe una asociación
     existente = db.query(UsuarioTamboRol).filter(
