@@ -12,7 +12,16 @@ def create_tambo(db: Session, tambo: TamboCreate) -> Tambo:
     db.refresh(tambo_nuevo)
     return tambo_nuevo
 
-def get_tambos(db: Session, skip: int = 0, limit: int = 100):
+
+def get_todos_tambos(db: Session, skip: int = 0, limit: int = 100):
+    tambos = db.query(Tambo).offset(skip).limit(limit).all() 
+    if not tambos:
+        raise HTTPException(status_code=404, detail="Tambos no encontrados")
+    
+    return tambos
+
+
+def get_tambos_activos(db: Session, skip: int = 0, limit: int = 100):
     tambos = db.query(Tambo).filter(Tambo.estado == True).offset(skip).limit(limit).all() 
     if not tambos:
         raise HTTPException(status_code=404, detail="Tambos no encontrados")

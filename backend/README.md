@@ -25,6 +25,7 @@ Se realizó con la herramienta Lucidchart, y se puede acceder a través del sigu
   
 app/  
 │  
+├── core/               # Seguridad y dependincias
 ├── crud/               # Lógica de base de datos con SQLAlchemy  
 ├── database/        # Conexión a MySQL y definición de modelos ORM  
 ├── endpoints/      # Rutas de la API  
@@ -33,18 +34,14 @@ app/
 ├── utils/                # Scripts para crear db (si no existe) e insertar datos de prueba  
 │  
 ├── \_\_init__.py         # Marca al directorio actual como módulo de Python  
+├── config.py           # Carga parámetros del archivo .env  
 ├── main.py            # Archivo principal: arranca el servidor y monta rutas   
 │  
 requirements.txt       # Dependencias del proyecto
 
 ## Comandos utiles 
 #### Archivo necesario:
-- **Crear un archivo ".env" (sin nombre) asignando valores a los siguientes parámetros:**  
-DB_HOST=  
-DB_PORT=  
-DB_USER=  
-DB_PASSWORD=  
-DB_NAME=  
+Se deja un archivo de nombre *".env.template"* con los campos que se deben completar para levantar el sistema.
 
 #### Recomendación:
 - **Crear entorno virtual:** python3 -m venv .venv  
@@ -53,5 +50,7 @@ DB_NAME=
 - **Instalar dependencias:** pip install -r requirements.txt
 - **Levantar el servidor:** uvicorn app.main:app --reload  
   *(--reload: opcional --> reinicia el servidor automáticamente al guardar cambios)*
+#### Atajo:
+- **Script de arranque:** Se deja el script *"run_backend.sh" para agilizar el proceso de levantar el backend. De todas maneras, es obligatorio instalar las dependencias con anterioridad.
 #### Test de endpoints:
 - **Swagger UI:** http://127.0.0.1:8000/docs

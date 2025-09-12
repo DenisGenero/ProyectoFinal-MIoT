@@ -2,9 +2,10 @@ from sqlalchemy.orm import Session
 from app.models.imagenes import Imagen
 from app.schemas.imagenes import ImagenCreate, UpdateImagen
 from fastapi import HTTPException
+from app.core import security as security
 
-def create_imagen(db: Session, imagen: ImagenCreate):
-    imagen_nueva = Imagen(**imagen.dict())
+def create_imagen(db: Session, imagen: ImagenCreate, id_dispositivo: int):
+    imagen_nueva = Imagen(**imagen.model_dump(), id_dispositivo=id_dispositivo)
     db.add(imagen_nueva)
     db.commit()
     db.refresh(imagen_nueva)

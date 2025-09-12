@@ -8,7 +8,7 @@ class UsuarioTamboRol(Base):
     id_usuario = Column(Integer, ForeignKey("usuarios.id", ondelete="CASCADE"), primary_key=True)
     id_tambo = Column(Integer, ForeignKey("tambos.id", ondelete="CASCADE"), primary_key=True)
     id_rol = Column(Integer, ForeignKey("roles.id", ondelete="CASCADE"), nullable=False)
-    estado = Column(Boolean, default=True)
+    estado = Column(Boolean, default=True, nullable=False)
 
     # Relaciones
     usuario = relationship("Usuario", back_populates="usuarios_tambos_roles")

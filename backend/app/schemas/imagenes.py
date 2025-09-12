@@ -3,22 +3,21 @@ from datetime import datetime
 from typing import Optional
 
 class ImagenBase(BaseModel):
-    id_dispositivo: int
     path_imagen: str
+    fecha: datetime
 
 class ImagenCreate(ImagenBase):
     pass
 
 class ImagenRead(ImagenBase):
     id: int
-    fecha: datetime
+    id_dispositivo: int
 
     class Config:
         from_attributes = True
 
 class UpdateImagen(BaseModel):
     path_imagen: Optional[str] = None
-    #fecha: Optinal[datetime] | None
 
     class Config:
         extra= "ignore"

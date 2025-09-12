@@ -2,11 +2,13 @@ from sqlalchemy.orm import Session
 from datetime import datetime, time, UTC
 from app.models.roles import Rol
 from app.models.usuarios import Usuario
+from app.schemas.usuarios import UsuarioCreate
 from app.models.tambos import Tambo
 from app.models.comederos import Comedero
 from app.models.usuarios_tambos_roles import UsuarioTamboRol
 from app.models.dispositivos import Dispositivo
 from app.models.imagenes import Imagen
+import app.crud.usuarios as crud_usuarios
 
 def insertar_datos_prueba(db: Session):
     # === Insertar roles ===
@@ -24,19 +26,26 @@ def insertar_datos_prueba(db: Session):
 
     # === Insertar usuarios ===
     if not db.query(Usuario).first():
+        '''
         usuarios = [
             Usuario(
                 nombres=f"Usuario{i+1}",
                 apellidos="Apellido",
                 email=f"usuario{i+1}@example.com",
                 password="1234",
-                fecha_alta=datetime.now(UTC),
-                ultimo_acceso=datetime.now(UTC),
-                estado=True
+                #fecha_alta=datetime.now(UTC),
+                #ultimo_acceso=datetime.now(UTC),
+                #estado=True
             ) for i in range(10)
         ]
-        db.add_all(usuarios)
-        db.commit()
+        '''
+        for i in range(10):
+            usuario = UsuarioCreate(
+                nombres=f"Usuario{i+1}",
+                apellidos="Apellido",
+                email=f"usuario{i+1}@example.com",
+                password="12345678",)
+            crud_usuarios.create_usuario(db, usuario)
         print("Usuarios insertados.")
     #else:
     #    print("Usuarios ya existen.")
@@ -108,8 +117,9 @@ def insertar_datos_prueba(db: Session):
                 puerto_servidor=22,
                 hora_inicio=time(6, 0),
                 hora_fin=time(18, 0),
-                intervalo=time(0, 30),
-                estado=True
+                intervalo=30,
+                estado=True,
+                mac_address=f"AA:BB:CC:DD:E{i}:F{i}"
             ))
         for j in range(2, 7):  # un dispositivo para cada uno de los otros comederos (id 2 al 6)
             dispositivos.append(Dispositivo(
@@ -123,8 +133,9 @@ def insertar_datos_prueba(db: Session):
                 puerto_servidor=22,
                 hora_inicio=time(6, 0),
                 hora_fin=time(18, 0),
-                intervalo=time(0, 30),
-                estado=True
+                intervalo=15,
+                estado=True,
+                mac_address=f"AA:B{j}:C{j}:DD:EE:FF"
             ))
         db.add_all(dispositivos)
         db.commit()

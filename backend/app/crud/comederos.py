@@ -34,6 +34,15 @@ def get_comederos_tambo(db: Session, tambo_id: int):
     
     return comederos
 
+def get_tambo_id_comedero(db: Session, comedero_id: int):
+    comedero = db.query(Comedero).filter(Comedero.id == comedero_id).first()
+    if not comedero:
+        raise HTTPException(status_code=404, detail="Comedero no encontrado")
+    if comedero.estado == False:
+        raise HTTPException(status_code=400, detail="Comedero inactivo")
+    
+    return comedero.id_tambo
+
 def update_comedero(db: Session, comedero_id: int, comedero_data: UpdateComedero):
     comedero = db.query(Comedero).filter(Comedero.id == comedero_id).first()
     if not comedero:
