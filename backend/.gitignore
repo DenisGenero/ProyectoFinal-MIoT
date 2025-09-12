@@ -14,7 +14,7 @@ ENV/
 
 # Python environment files
 *.env
-.env.*
+#.env.*
 
 # MySQL dump or config files
 *.sql

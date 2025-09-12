@@ -35,13 +35,15 @@ app/
 │  
 ├── \_\_init__.py         # Marca al directorio actual como módulo de Python  
 ├── config.py           # Carga parámetros del archivo .env  
-├── main.py            # Archivo principal: arranca el servidor y monta rutas   
+├── main.py            # Archivo principal: arranca el servidor y monta rutas  
 │  
-requirements.txt       # Dependencias del proyecto
+.env.template         # Template con parámetros de configuración del sistema  
+requirements.txt       # Dependencias del proyecto  
+run_backend.sh         # Script para levantar el backend (activa el entorno virtual y ejecuta uvicorn)  
 
 ## Comandos utiles 
 #### Archivo necesario:
-Se deja un archivo de nombre *".env.template"* con los campos que se deben completar para levantar el sistema.
+Se deja un archivo de nombre *".env.template"* con los campos que se deben completar y renombrar el archivo a *".env"* para levantar el sistema.  
 
 #### Recomendación:
 - **Crear entorno virtual:** python3 -m venv .venv  
