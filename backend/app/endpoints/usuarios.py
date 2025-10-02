@@ -30,6 +30,16 @@ def obtener_usuario_mail(
     return crud_usuarios.get_usuario_por_mail(db, email)
 
 
+@router.get("/usuarios/me", response_model=UsuarioRead)
+def obtener_usuario_token(
+    db: Session = Depends(get_db),
+    token: HTTPAuthorizationCredentials = Depends(oauth2_scheme)):
+    print(token)
+    return get_usuario_from_token(db, token)
+    #print(usuario.apellidos)
+    #return usuario
+
+
 @router.get("/usuarios/{usuario_id}", response_model=UsuarioRead)
 def obtener_usuario(usuario_id: int, db: Session = Depends(get_db)):
     return crud_usuarios.get_usuario_por_id(db, usuario_id)

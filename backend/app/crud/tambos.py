@@ -1,15 +1,27 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from app.models.tambos import Tambo
+from app.models.roles import Rol
 from app.schemas.tambos import TamboCreate, TamboUpdate
+from app.crud.usuarios_tambos_roles import asociar_usuario_tambo_rol
+from app.schemas.usuarios_tambos_roles import UsuarioTamboRolCreate
 
 
-def create_tambo(db: Session, tambo: TamboCreate) -> Tambo:
+def create_tambo(db: Session, tambo: TamboCreate, usuario_id: int) -> Tambo:
     tambo_nuevo = Tambo(**tambo.model_dump())
     tambo_nuevo.estado = True
     db.add(tambo_nuevo)
     db.commit()
     db.refresh(tambo_nuevo)
+    print("Tambo id:", tambo_nuevo.id)
+    # Asociar al usuario que creo el tambo como administrador del mismo
+    rol_admin = db.query(Rol).filter(Rol.es_admin == True).first()
+    asociacion = UsuarioTamboRolCreate(
+        id_tambo = tambo_nuevo.id,
+        id_usuario = usuario_id,
+        id_rol = rol_admin.id
+    )
+    asociar_usuario_tambo_rol(db, usuario_id, tambo_nuevo.id, rol_admin.id)
     return tambo_nuevo
 
 

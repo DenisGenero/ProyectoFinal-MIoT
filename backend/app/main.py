@@ -3,12 +3,31 @@ from app.endpoints import router as endpoints_router
 from app.database.database import Base, engine, SessionLocal
 from app.utils.init_data import insertar_datos_prueba
 from app.utils.init_db import crear_base_datos
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
+
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
+]
 
 app = FastAPI(
     title="API - Agro IoT",
     description="Backend del sistema web para gestión de tambos y dispositivos IoT.",
     version="1.0.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.mount("/imagenes", StaticFiles(directory=r"D:\UBA\CEIoT\ProyectoFinal\imagenes", html=True), name="imagenes")
+
 
 # Crear la base de datos si no existe
 crear_base_datos()

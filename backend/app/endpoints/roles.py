@@ -29,8 +29,9 @@ def listar_roles(
     current_user = get_usuario_from_token(db, token)
     if not current_user:
         raise HTTPException(status_code=401, detail="Usuario no validado")
-    if not current_user.es_superadmin:
-        raise HTTPException(status_code=401, detail="Usuario no autorizado")
+    
+    #if not current_user.es_superadmin:
+    #    raise HTTPException(status_code=401, detail="Usuario no autorizado")
     
     return crud_roles.get_roles(db, skip, limit)
 

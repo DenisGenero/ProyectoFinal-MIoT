@@ -51,8 +51,13 @@ def obtener_dispositivo(
     dispositivo_id: int,
     db: Session = Depends(get_db),
     token: HTTPAuthorizationCredentials = Depends(security.oauth2_scheme)):
-    tambo_id = crud_dispositivos.get_tambo_id_dispositivo(db, dispositivo_id)
-    security.es_admin_en_tambo(db, tambo_id, token)
+    #tambo_id = crud_dispositivos.get_tambo_id_dispositivo(db, dispositivo_id)
+    #security.es_admin_en_tambo(db, tambo_id, token)
+    current_user = security.get_usuario_from_token(db, token)
+    dispositivo = crud_dispositivos.get_dispositivo_por_id(db, dispositivo_id)
+    tambo_id = crud_dispositivos.get_tambo_id_comedero(db, dispositivo.id_comedero)
+    security.ususario_pertenece_tambo(db, tambo_id, current_user)
+
 
     return crud_dispositivos.get_dispositivo_por_id(db, dispositivo_id)
 

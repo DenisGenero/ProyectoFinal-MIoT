@@ -13,9 +13,9 @@ def crear_tambo(
     tambo: TamboCreate,
     db: Session = Depends(get_db),
     token: HTTPAuthorizationCredentials = Depends(security.oauth2_scheme)):
-    security.get_usuario_from_token(db, token)
+    usuario = security.get_usuario_from_token(db, token)
 
-    return crud_tambos.create_tambo(db, tambo)
+    return crud_tambos.create_tambo(db, tambo, usuario.id)
 
 @router.get("/tambos/", response_model=list[TamboRead])
 def listar_tambos(

@@ -47,7 +47,10 @@ def get_usuario_from_token(
         db: Session,
         token: HTTPAuthorizationCredentials = Depends(oauth2_scheme)
         ) -> Usuario:
-    payload = decode_token(token.credentials)
+    if type(token) is str:
+        payload = decode_token(token)
+    else:
+        payload = decode_token(token.credentials)
     if not payload:
         raise HTTPException(status_code=401, detail="Token inválido o expirado")
 

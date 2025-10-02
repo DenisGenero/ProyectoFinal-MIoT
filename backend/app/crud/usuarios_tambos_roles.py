@@ -8,7 +8,12 @@ from app.schemas.usuarios_tambos_roles import UsuarioTamboRolCreate
 
 
 # Asociar usuario con rol a un tambo
-def asociar_usuario_tambo_rol(db: Session, asociacion: UsuarioTamboRolCreate):
+def asociar_usuario_tambo_rol(db: Session, id_usuario: int, id_tambo: int, id_rol: int):
+    asociacion = UsuarioTamboRolCreate(
+        id_usuario = id_usuario,
+        id_tambo = id_tambo,
+        id_rol = id_rol
+    )
     # Verificar existencia y estado de usuario
     usuario = db.query(Usuario).filter(Usuario.id == asociacion.id_usuario).first()
     if not usuario:
@@ -118,7 +123,7 @@ def get_usuarios_por_tambo(db: Session, id_tambo: int):
 
 
 # Obtener tambos y roles de un usuario
-def get_tambos_por_usuario(db: Session, id_usuario: int):
+def get_asociaciones_usuario(db: Session, id_usuario: int):
     usuario = db.query(Usuario).filter(Usuario.id == id_usuario).first()
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
@@ -130,5 +135,7 @@ def get_tambos_por_usuario(db: Session, id_usuario: int):
         UsuarioTamboRol.estado == True,
         Tambo.estado == True
     ).join(Tambo, UsuarioTamboRol.id_tambo == Tambo.id).all()
+
+    #tambos = db.query(Tambo).filter(Tambo.id == asociaciones.id_tambo)
 
     return asociaciones

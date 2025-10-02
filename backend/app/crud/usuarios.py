@@ -49,7 +49,7 @@ def login_usuario(db: Session, email: str, password: str):
     usuario.ultimo_acceso =  datetime.now(config.UY_TZ)
     db.commit()
     db.refresh(usuario)
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "user": usuario}
 
 
 def get_usuarios(db: Session, skip: int = 0, limit: int = 100):

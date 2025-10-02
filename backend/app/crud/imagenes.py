@@ -1,8 +1,9 @@
 from sqlalchemy.orm import Session
 from app.models.imagenes import Imagen
 from app.schemas.imagenes import ImagenCreate, UpdateImagen
-from fastapi import HTTPException
+from fastapi import HTTPException, Query
 from app.core import security as security
+from datetime import datetime, timedelta
 
 def create_imagen(db: Session, imagen: ImagenCreate, id_dispositivo: int):
     imagen_nueva = Imagen(**imagen.model_dump(), id_dispositivo=id_dispositivo)
@@ -23,6 +24,34 @@ def get_imagenes_por_id(db: Session, imagen_id: int):
         raise HTTPException(status_code=404, detail="Imagen no encontrada")
     
     return imagen
+
+def get_imagenes_por_dispositivo_y_fecha(
+        db: Session,
+        dispositivo_id: int,
+        fecha: str):
+    try:
+        print("Mi fecha: ", fecha)
+        fecha_dt = datetime.strptime(fecha, "%Y-%m-%d")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Formato de fecha inválido. Debe ser YYYY-mm-dd")
+
+    inicio = fecha_dt
+    fin = fecha_dt + timedelta(days=1)
+
+    imagenes = (
+        db.query(Imagen)
+        .filter(
+            Imagen.id_dispositivo == dispositivo_id,
+            Imagen.fecha >= inicio,
+            Imagen.fecha < fin,
+        )
+        .all()
+    )
+
+    if not imagenes:
+        raise HTTPException(status_code=404, detail="No se encontraron imágenes para ese día")
+
+    return imagenes
 
 def get_imagenes_dispositivo(db: Session, dispositivo_id):
     imagenes = db.query(Imagen).filter(Imagen.id_dispositivo == dispositivo_id).all()

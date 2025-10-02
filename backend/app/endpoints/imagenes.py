@@ -20,12 +20,6 @@ def crear_imagen(
 
     return crud_imagenes.create_imagen(db, imagen, dispositivo.id)
 
-"""
-@router.get("/imagenes/", response_model=list[ImagenRead])
-def listar_imagenes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud_imagenes.get_imagenes(db, skip, limit)
-""" 
-
 @router.get("/imagenes/{imagen_id}", response_model=ImagenRead)
 def obtener_imagen(
     imagen_id: int,
@@ -50,6 +44,12 @@ def obtener_imagenes_dispositivo(
     security.ususario_pertenece_tambo(db, tambo_id, usuario)
 
     return crud_imagenes.get_imagenes_dispositivo(db, dispositivo_id)
+
+@router.get("/imagenes/{dispositivo_id}/buscar_por_dia", response_model=list[ImagenRead])
+def buscar_imagenes_por_dia(dispositivo_id: int, fecha: str, db: Session = Depends(get_db)):
+
+    return crud_imagenes.get_imagenes_por_dispositivo_y_fecha(db, dispositivo_id, fecha)
+
 
 @router.put("/imagenes/{imagen_id}", response_model=ImagenRead)
 def actualizar_imagen(
