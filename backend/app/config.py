@@ -16,6 +16,8 @@ DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB
 
 CREATE_DB_CMD = f"CREATE DATABASE IF NOT EXISTS " +  (DB_NAME) + " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
 
+IMAGES_PATH: str = os.getenv("IMAGES_PATH")
+
 SECRET_KEY: str = os.getenv("SECRET_KEY")
 SECRET_DISPOSITIVOS: str = os.getenv("SECRET_DISPOSITIVOS")
 ALGORITHM: str = os.getenv("ALGORITHM", "HS256")

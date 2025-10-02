@@ -5,6 +5,7 @@ from app.utils.init_data import insertar_datos_prueba
 from app.utils.init_db import crear_base_datos
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+import app.config as config
 import os
 
 origins = [
@@ -26,8 +27,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/imagenes", StaticFiles(directory=r"D:\UBA\CEIoT\ProyectoFinal\imagenes", html=True), name="imagenes")
-
+path = config.IMAGES_PATH
+app.mount("/imagenes", StaticFiles(directory=path, html=True), name="imagenes")
 
 # Crear la base de datos si no existe
 crear_base_datos()
