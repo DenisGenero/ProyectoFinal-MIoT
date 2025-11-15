@@ -10,8 +10,10 @@ import EditarDispositivo from "./EditDispositivo";
 import InfoDispositivo from "./InfoDispositivo"
 import BuscarImagenes from "./SearchImagenes"
 
-export default function DispositivoDetail() {
-  const { id } = useParams(); // id del dispositivo
+export default function DispositivoDetail(props) {
+  //const { id } = useParams(); // id del dispositivo
+  const params = useParams();
+  const id = props.id || params.id;
   const [dispositivo, setDispositivo] = useState(null);
   const [esAdmin, setEsAdmin] = useState(false);
   const [fecha, setFecha] = useState(""); // yyyy-mm-dd
@@ -154,9 +156,9 @@ export default function DispositivoDetail() {
           )}
         </>
       )}
-
+      {/*
       <br />
-      <button onClick={handleGoBack}> &larr; Volver </button>
+      <button onClick={handleGoBack}> &larr; Volver </button>*/}
     </div>
   );
 }

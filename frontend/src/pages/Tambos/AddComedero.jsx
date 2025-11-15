@@ -22,7 +22,9 @@ export default function AddComedero({ tamboId, onComederoAdded }) {
   };
 
   if (!showForm) {
-    return <button onClick={() => setShowForm(true)}>Agregar comedero</button>;
+    return <button onClick={() => setShowForm(true)}
+    style={{backgroundColor:"green"}}>
+      + Agregar comedero</button>;
   }
 
   return (
@@ -34,6 +36,7 @@ export default function AddComedero({ tamboId, onComederoAdded }) {
         value={nombre}
         onChange={(e) => setNombre(e.target.value)}
         required
+        style={{ width: '60%' }}
       /> 
       <br /><br />
       <input
@@ -41,6 +44,7 @@ export default function AddComedero({ tamboId, onComederoAdded }) {
         placeholder="Descripción"
         value={descripcion}
         onChange={(e) => setDescripcion(e.target.value)}
+        style={{ width: '60%' }}
       />
       <br /><br />
       <input
@@ -49,11 +53,15 @@ export default function AddComedero({ tamboId, onComederoAdded }) {
         value={ubicacion}
         onChange={(e) => setUbicacion(e.target.value)}
         required
+        style={{ width: '60%' }}
       />
       <br /><br />
-      <button type="submit">Guardar</button>
-      <button type="button" onClick={() => setShowForm(false)}>
-        Cancelar
+      <button type="submit"
+      style={{ backgroundColor:"green" }}>
+        + Agregar</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" onClick={() => setShowForm(false)}
+      style={{ backgroundColor:"red" }}  >
+        X Cancelar
       </button>
     </form>
   );

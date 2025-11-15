@@ -18,7 +18,12 @@ export default function AddDevice({ comederoId, onDeviceAdded }) {
   };
 
   if (!showForm) {
-    return <button onClick={() => setShowForm(true)}>Agregar dispositivo</button>;
+    return <button 
+    onClick={() => setShowForm(true)}
+    style={{backgroundColor:"green"}}
+    >
+      + Agregar dispositivo
+      </button>;
   }
 
   return (
@@ -32,9 +37,14 @@ export default function AddDevice({ comederoId, onDeviceAdded }) {
         required
       /> 
       <br /><br />
-      <button type="submit">Guardar</button>
-      <button type="button" onClick={() => setShowForm(false)}>
-        Cancelar
+      <button type="submit"
+      style={{backgroundColor:"green"}}
+      >+ Agregar </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" 
+      onClick={() => setShowForm(false)}
+      style={{backgroundColor:"red"}}
+      >
+        X Cancelar
       </button>
     </form>
   );

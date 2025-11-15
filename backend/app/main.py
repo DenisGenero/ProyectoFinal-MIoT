@@ -9,8 +9,9 @@ import app.config as config
 import os
 
 origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173"
+    "http://localhost:5137",
+    "http://127.0.0.1:5137",
+    "http://164.73.72.30:5137"
 ]
 
 app = FastAPI(

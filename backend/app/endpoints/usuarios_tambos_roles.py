@@ -42,6 +42,18 @@ def reactivar_usuario_tambo_rol(
 
     return crud_utr.recuperar_usuario_tambo_rol(db, usuario_id, tambo_id)
 
+# Cambiar rol
+@router.put("/usuarios-tambos-roles/{usuario_id}/{tambo_id}/{rol_id}/cambiar-rol")
+def actualizar_usuario_tambo_rol(
+    usuario_id: int,
+    tambo_id: int,
+    rol_id: int,
+    db: Session = Depends(get_db),
+    token: HTTPAuthorizationCredentials = Depends(oauth2_scheme)):
+    es_admin_en_tambo(db, tambo_id, token)
+
+    return crud_utr.actualizar_usuario_tambo_rol(db, usuario_id, tambo_id, rol_id)
+
 #Obtener los propios tambos
 @router.get("/propios-tambos", response_model=list[UsuarioTamboRolRead])
 def obtener_propios_tambos(

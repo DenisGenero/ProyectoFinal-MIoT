@@ -13,7 +13,8 @@ return (
         gap: "10px" 
       }}>
         {imagenes?.length === 0 ? (
-          <p>No hay imágenes para esta fecha</p>
+          fecha ? (
+          <p>No hay imágenes para esta fecha</p>) : (<p></p>)
         ) : (
           imagenes.map((img, idx) => (
             <div key={idx} style={{ display: "inline-block", margin: "10px", textAlign: "center" }}>

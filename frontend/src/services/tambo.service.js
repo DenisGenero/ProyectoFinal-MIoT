@@ -128,3 +128,23 @@ export const addComederoToTambo = async (tamboId, nombre, descripcion, ubicacion
     throw new Error(errMsg)
   }
 };
+
+export const desvincularUsuarioDeTambo = async (userId, tamboId) => {
+  try{
+    const res = await api.put(`/usuarios-tambos-roles/${userId}/${tamboId}/desactivar`);
+    return res.data;
+  } catch (err) {
+    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado";
+    throw new Error(errMsg)
+  }
+}
+
+export const actualizarRolEnTambo = async (userId, tamboId, nuevoRolId) => {
+  try{
+    const res = await api.put(`/usuarios-tambos-roles/${userId}/${tamboId}/${nuevoRolId}/cambiar-rol`);
+    return res.data;
+  } catch (err) {
+    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado";
+    throw new Error(errMsg)
+  }
+}

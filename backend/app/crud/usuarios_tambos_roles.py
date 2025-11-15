@@ -90,6 +90,18 @@ def recuperar_usuario_tambo_rol(db: Session, id_usuario: int, id_tambo: int):
     db.commit()
     return {"mensaje": "Asociación restaurada"}
 
+def actualizar_usuario_tambo_rol(db, id_usuario, id_tambo, id_rol):
+    asociacion = db.query(UsuarioTamboRol).filter(
+        UsuarioTamboRol.id_usuario == id_usuario,
+        UsuarioTamboRol.id_tambo == id_tambo,
+    ).first()
+
+    if not asociacion:
+        raise HTTPException(status_code=404, detail="Asociación no encontrada")
+
+    asociacion.id_rol = id_rol
+    db.commit()
+
 # Eliminar asociación (físico)
 def eliminar_usuario_tambo_rol_fisico(db: Session, id_usuario: int, id_tambo: int):
     asociacion = db.query(UsuarioTamboRol).filter(

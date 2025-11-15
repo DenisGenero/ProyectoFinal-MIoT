@@ -7,6 +7,7 @@ export default function AddUser({ tamboId, onUserAdded }) {
   const [roles, setRoles] = useState([]); // lista de roles de la DB
   const [selectedRolId, setSelectedRolId] = useState(""); // rol elegido
   const [showForm, setShowForm] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchRoles();
@@ -24,37 +25,46 @@ export default function AddUser({ tamboId, onUserAdded }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = await getUserByEmail(email)
-    console.log("Id1:", userId);
-    await addUserToTambo(userId, tamboId, selectedRolId);
-    setEmail("");
-    onUserAdded();
-    setShowForm(false);
+    try{
+      const userId = await getUserByEmail(email)
+      await addUserToTambo(userId, tamboId, selectedRolId);
+      setEmail("");
+      onUserAdded();
+      setShowForm(false);
+    } catch(err){
+      setError(err.message);
+    }
   };
 
   const handleCancel = () => {
     setShowForm(false);
     setEmail("");
     setSelectedRolId(roles[0]?.id || "");
+    setError("");
   };
 
   return (
     <>
       {!showForm ? (
-        <button onClick={() => setShowForm(true)}>Asociar usuario</button>
+        <button onClick={() => setShowForm(true)}
+        style={{backgroundColor:"green"}}>
+          + Asociar usuario</button>
       ) : (
         <form onSubmit={handleSubmit}>
           <h4>Asociar usuario</h4>
+          {error && <p style={{ color: "red" }}>{error}</p>}
           <input
             type="email"
             placeholder="Email del usuario"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-          />
+            style={{ width: '60%' }}
+          /> &nbsp; &nbsp;
           <select
             value={selectedRolId}
             onChange={(e) => setSelectedRolId(e.target.value)}
+            style={{ width: '30%' }}
           >
             {roles.map((rol) => (
               <option key={rol.id} value={rol.id}>
@@ -62,10 +72,14 @@ export default function AddUser({ tamboId, onUserAdded }) {
               </option>
             ))}
           </select>
-          <br />
-          <button type="submit">Agregar</button>
-          <button type="button" onClick={handleCancel}>
-            Cancelar
+          <br/>
+          <br/>
+          <button type="submit"
+          style={{backgroundColor:"green"}}>
+            + Agregar</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" onClick={handleCancel}
+          style={{backgroundColor:"red"}}>
+            X Cancelar
           </button>
         </form>
       )}

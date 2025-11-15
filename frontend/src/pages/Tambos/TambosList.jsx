@@ -56,6 +56,7 @@ export default function TambosList() {
 
   return (
     <div>
+      <h1 style={{color:"#646cff"}}>Agro IoT</h1>
       <h2>Mis Tambos</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {asociaciones.length === 0 ? (
@@ -80,9 +81,13 @@ export default function TambosList() {
         )}
 
       {!showForm ? (
-        <button onClick={() => setShowForm(true)}>Crear tambo</button>
+        <button 
+        onClick={() => setShowForm(true)}
+        style={{backgroundColor:"green",}}>
+          + Crear tambo</button>
       ) : (
-        <form onSubmit={handleCreate}>
+        <form onSubmit={handleCreate}
+        >
           <h3>Crear un nuevo tambo</h3>
           <input
             type="text"
@@ -114,7 +119,9 @@ export default function TambosList() {
         </form>
       )}
       <br /><br />
-      <button onClick={logout}>Cerrar sesión</button>
+      <button onClick={logout}
+      style={{backgroundColor:"red",}}>
+        Cerrar sesión</button>
     </div>
   );
 }
