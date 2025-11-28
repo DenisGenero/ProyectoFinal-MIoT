@@ -26,6 +26,16 @@ export const createTambo = async (nombre, descripcion, ubicacion) => {
   }
 };
 
+export const EditTambo = async (id, tamboData) => {
+  try {
+    const res = await api.put(`/tambos/${id}`, tamboData);
+    return res.data;
+  } catch (err) {
+    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado";
+    throw new Error(errMsg);
+  }
+};
+
 export const esAdminEnTambo = async (id) => {
   try{
     const asociaciones = await api.get("/propios-tambos");
@@ -54,39 +64,48 @@ export const getUserByEmail = async (email) => {
 }
 
 export const getTamboDetail = async (id) => {
-  let tamboRes = null
-  try{
-    tamboRes = await api.get(`/tambos/${id}`)
+  let tamboRes = null;
+  try {
+    tamboRes = await api.get(`/tambos/${id}`);
   } catch (err) {
-    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado";
-    throw new Error(errMsg)
+    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado al obtener el tambo";
+    throw new Error(errMsg);
   }
 
-  let comederosRes = {data: []};
-  try{
+  let comederosRes = { data: [] };
+  try {
     comederosRes = await api.get(`/comederos/${id}/tambo`);
   } catch (err) {
-    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado";
-    throw new Error(errMsg)
+    const status = err.response?.status;
+    if (status === 404 || status === 400) {
+      console.warn(`No hay comederos asociados al tambo ${id}.`);
+    } else {
+      const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado al cargar comederos";
+      throw new Error(errMsg);
+    }
   }
 
   let usuariosRes = { data: [] };
 
   // si es admin en este tambo, se traen los usuarios
-  try{
-    if (await esAdminEnTambo(id)){
+  try {
+    if (await esAdminEnTambo(id)) {
       usuariosRes = await api.get(`/tambos/${id}/usuarios`);
     }
   } catch (err) {
-    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado";
-    throw new Error(errMsg)
+    const status = err.response?.status;
+    if (status === 404 || status === 400) {
+      console.warn(`No hay usuarios asociados al tambo ${id}.`);
+    } else {
+      console.error("Error al cargar usuarios para el administrador:", err);
+    }
   }
 
   return {
     ...tamboRes.data,
     usuarios: usuariosRes.data,
-    comederos: comederosRes.data,}
-
+    comederos: comederosRes.data,
+  };
 };
 
 export const getRoles = async () => {

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from datetime import time
 from typing import Optional
 
@@ -21,6 +21,7 @@ class DispositivoAdmin(BaseModel):
     direccion_servidor: Optional[str] = None
     puerto_servidor: Optional[int] = None
     mac_address: Optional[str] = None
+    estado: Optional[bool] = None
 
 class DispositivoConfigRead(DispositivoBase, DispositivoConfig):
     id: int
@@ -36,17 +37,6 @@ class DispositivoAdminRead(DispositivoBase, DispositivoAdmin):
     class Config:
         from_attributes = True
 
-"""
-class DispositivoReadAdmin(DispositivoBase):
-    id: int
-    id_comedero: int
-    config: Optional[DispositivoConfig] = None
-    admin_config: Optional[DispositivoAdmin] = None
-
-    class Config:
-        from_attributes = True
-"""
-
 class UpdateDispositivo(BaseModel):
     nombre: Optional[str] = None
     hora_inicio: Optional[time] = None
@@ -56,7 +46,7 @@ class UpdateDispositivo(BaseModel):
     class Config:
         extra= "ignore"
 
-class UpdateDispositivoAdmin(DispositivoAdmin):
+class UpdateDispositivoAdmin(BaseModel):
     usuario_local: Optional[str] = None
     direccion_local: Optional[str] = None
     puerto_ssh: Optional[int] = None
@@ -64,3 +54,10 @@ class UpdateDispositivoAdmin(DispositivoAdmin):
     direccion_servidor: Optional[str] = None
     puerto_servidor: Optional[int] = None
     mac_address: Optional[str] = None
+    estado: Optional[bool] = None
+
+    @field_validator("puerto_ssh", "puerto_servidor", mode="before")
+    def empty_string_as_none(cls, v):
+        if v == "" or v is None:
+            return None
+        return v

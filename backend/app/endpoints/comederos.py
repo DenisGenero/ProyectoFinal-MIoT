@@ -47,7 +47,7 @@ def actualizar_comedero(
     comedero_data: UpdateComedero,
     db: Session = Depends(get_db),
     token: HTTPAuthorizationCredentials = Depends(security.oauth2_scheme)):
-    tambo_id: int = crud_comederos.get_tambo_id_comedero(comedero_id)
+    tambo_id: int = crud_comederos.get_tambo_id_comedero(db, comedero_id)
     security.es_admin_en_tambo(db, tambo_id, token)
 
     return crud_comederos.update_comedero(db, comedero_id, comedero_data)

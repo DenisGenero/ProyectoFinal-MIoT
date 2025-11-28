@@ -6,7 +6,7 @@ import {
   getImagenesByFecha,
   esAdminEnDispositivo,
 } from "../../services/dispositivo.service";
-import EditarDispositivo from "./EditDispositivo";
+import DispositivoEdit from "./DispositivoEdit";
 import InfoDispositivo from "./InfoDispositivo"
 import BuscarImagenes from "./SearchImagenes"
 
@@ -138,7 +138,7 @@ export default function DispositivoDetail(props) {
           {!mostrarForm ? (
             <>
                 <InfoDispositivo dispositivo={dispositivo}/>
-                <button onClick={() => setMostrarForm(true)}>Actualizar dispositivo</button>
+                <button onClick={() => setMostrarForm(true)}>Actualizar</button>
                 <BuscarImagenes
                   fecha={fecha}
                   handleFechaChange={handleFechaChange}
@@ -147,7 +147,7 @@ export default function DispositivoDetail(props) {
                 />
             </>
           ) : (
-            <EditarDispositivo
+            <DispositivoEdit
               editForm={editForm}
               handleFormChange={handleFormChange}
               handleUpdate={handleUpdate}
@@ -156,9 +156,6 @@ export default function DispositivoDetail(props) {
           )}
         </>
       )}
-      {/*
-      <br />
-      <button onClick={handleGoBack}> &larr; Volver </button>*/}
     </div>
   );
 }

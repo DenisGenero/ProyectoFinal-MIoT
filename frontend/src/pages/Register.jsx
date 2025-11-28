@@ -24,22 +24,24 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Agro IoT</h1>
-      <h2>Registro</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <input type="text" placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
-      <br /><br />
-      <input type="text" placeholder="Apellido" value={apellido} onChange={(e) => setApellido(e.target.value)} required />
-      <br /><br />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      <br /><br />
-      <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} required />
-      <br /><br />
-      <button type="submit">Registrarse</button>
-      <p>
-        ¿Ya tenés cuenta? <Link to="/login">Iniciar sesión</Link>
-      </p>
-    </form>
+    <div style={{placeItems: "center"}}>
+      <form onSubmit={handleSubmit}>
+        <h1>Agro IoT</h1>
+        <h2>Registro</h2>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <input type="text" placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+        <br /><br />
+        <input type="text" placeholder="Apellido" value={apellido} onChange={(e) => setApellido(e.target.value)} required />
+        <br /><br />
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <br /><br />
+        <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <br /><br />
+        <button type="submit">Registrarse</button>
+        <p>
+          ¿Ya tenés cuenta? <Link to="/login">Iniciar sesión</Link>
+        </p>
+      </form>
+    </div>
   );
 }

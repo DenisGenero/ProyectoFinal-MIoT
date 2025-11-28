@@ -18,7 +18,7 @@ def crear_dispositivo(
 
     return crud_dispositivos.create_dispositivo(db, dispositivo)
 
-@router.get("/dispositivos/", response_model=list[DispositivoAdminRead])
+@router.get("/dispositivos", response_model=list[DispositivoAdminRead])
 def listar_dispositivos(
     skip: int = 0,
     limit: int = 100,
@@ -27,6 +27,15 @@ def listar_dispositivos(
     security.es_superadmin(db, token)
 
     return crud_dispositivos.get_dispositivos(db, skip, limit)
+
+@router.get("/dispositivos/mac", response_model=DispositivoAdminRead)
+def obtener_dispositivo_por_mac(
+    mac_address: str,
+    db: Session = Depends(get_db),
+    token: HTTPAuthorizationCredentials = Depends(security.oauth2_scheme)):
+    security.es_superadmin(db, token)
+
+    return crud_dispositivos.get_dispositivo_por_mac(db, mac_address)
 
 @router.get("/dispositivos/rpi-config", response_model=DispositivoAdminRead)
 def obtener_config_rpi(
@@ -51,15 +60,21 @@ def obtener_dispositivo(
     dispositivo_id: int,
     db: Session = Depends(get_db),
     token: HTTPAuthorizationCredentials = Depends(security.oauth2_scheme)):
-    #tambo_id = crud_dispositivos.get_tambo_id_dispositivo(db, dispositivo_id)
-    #security.es_admin_en_tambo(db, tambo_id, token)
     current_user = security.get_usuario_from_token(db, token)
     dispositivo = crud_dispositivos.get_dispositivo_por_id(db, dispositivo_id)
     tambo_id = crud_dispositivos.get_tambo_id_comedero(db, dispositivo.id_comedero)
     security.ususario_pertenece_tambo(db, tambo_id, current_user)
 
-
     return crud_dispositivos.get_dispositivo_por_id(db, dispositivo_id)
+
+@router.get("/dispositivos/usuario", response_model=list[DispositivoAdminRead], response_model_exclude={"config"})
+def obtener_dispositivos_usuario(
+    email: str,
+    db: Session = Depends(get_db),
+    token: HTTPAuthorizationCredentials = Depends(security.oauth2_scheme)):
+    security.get_usuario_from_token(db, token)
+
+    return crud_dispositivos.get_dispositivos_por_usuario(db, email)
 
 
 @router.get("/dispositivos/{dispositivo_id}/admin-config", response_model=DispositivoAdminRead, response_model_exclude={"config"})
@@ -135,7 +150,7 @@ def actualizar_dispositivo_admin(
     token: HTTPAuthorizationCredentials = Depends(security.oauth2_scheme)):
     security.es_superadmin(db, token)
     
-    return crud_dispositivos.update_dispositivo(db, dispositivo_id, dispositivo_data)
+    return crud_dispositivos.update_dispositivo_admin(db, dispositivo_id, dispositivo_data)
 
 
 @router.put("/dispositivos/{dispositivo_id}/desactivar")

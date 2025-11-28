@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./context/AuthContext";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import TambosList from "./pages/Tambos/TambosList";
@@ -7,13 +8,20 @@ import TamboDetail from "./pages/Tambos/TamboDetail";
 import ComederoDetail from "./pages/Comederos/ComederoDetail";
 import DispositivoDetail from "./pages/Dispositivos/DispositivoDetail";
 
+import InicioSegunRol from "./pages/InicioSegunRol";
+import SuperAdmin from "./pages/Usuarios/SuperAdmin";
+
 function App() {
   const { user } = useAuthContext();
 
   return (
     <Routes>
-      <Route path="/login" element={user ? <Navigate to="/tamboslist" /> : <Login />} />
-      <Route path="/register" element={user ? <Navigate to="/tamboslist" /> : <Register />} />
+      <Route path="/" element={<InicioSegunRol />} />
+
+      <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+      <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
+
+       <Route path="/superadmin" element={user?.es_superadmin ? <SuperAdmin /> : <Navigate to="/" />} />
 
       <Route path="/tamboslist" element={user ? <TambosList /> : <Navigate to="/login" />} />
       <Route path="/tambos/:id" element={user ? <TamboDetail /> : <Navigate to="/login" />} />

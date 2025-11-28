@@ -21,6 +21,7 @@ export default function Login() {
   };
 
   return (
+    <div style={{placeItems: "center"}}>
       <form onSubmit={handleSubmit}>
         <h1 style={{color:"#646cff"}}>Agro IoT</h1>
         <h2>Login</h2>
@@ -53,5 +54,6 @@ export default function Login() {
           ¿No tenés cuenta? <Link to="/register">Registrate</Link>
         </p>
       </form>
+    </div>
   );
 }

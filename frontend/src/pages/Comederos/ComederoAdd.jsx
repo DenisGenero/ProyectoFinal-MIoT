@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addComederoToTambo } from "../../services/tambo.service";
 
-export default function AddComedero({ tamboId, onComederoAdded }) {
+export default function ComederoAdd ({ tamboId, onComederoAdded }) {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [ubicacion, setUbicacion] = useState("");
@@ -23,8 +23,8 @@ export default function AddComedero({ tamboId, onComederoAdded }) {
 
   if (!showForm) {
     return <button onClick={() => setShowForm(true)}
-    style={{backgroundColor:"green"}}>
-      + Agregar comedero</button>;
+    className="btn-add">
+      Agregar comedero</button>;
   }
 
   return (
@@ -52,16 +52,15 @@ export default function AddComedero({ tamboId, onComederoAdded }) {
         placeholder="Ubicación"
         value={ubicacion}
         onChange={(e) => setUbicacion(e.target.value)}
-        required
         style={{ width: '60%' }}
       />
       <br /><br />
       <button type="submit"
-      style={{ backgroundColor:"green" }}>
-        + Agregar</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      className="btn-add">
+        Agregar</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <button type="button" onClick={() => setShowForm(false)}
-      style={{ backgroundColor:"red" }}  >
-        X Cancelar
+      className="btn-cancel">
+        Cancelar
       </button>
     </form>
   );

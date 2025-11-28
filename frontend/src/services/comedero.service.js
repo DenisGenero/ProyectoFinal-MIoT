@@ -11,6 +11,16 @@ export const getInfoComedero = async (id) => {
     }
 }
 
+export const EditComedero = async (id, comederoData) => {
+  try {
+    const res = await api.put(`/comederos/${id}`, comederoData);
+    return res.data;
+  } catch (err) {
+    const errMsg = err.response?.data?.detail || "Ocurrió un error inesperado";
+    throw new Error(errMsg);
+  }
+};
+
 export const esAdminEnComedero = async (id) => {
     try{
       const comederoRes = await getInfoComedero(id);

@@ -14,6 +14,7 @@ class UsuarioRead(UsuarioBase):
     id: int
     fecha_alta: datetime
     ultimo_acceso: datetime
+    es_superadmin: bool
 
     class Config:
         from_attributes = True

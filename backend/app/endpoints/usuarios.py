@@ -49,6 +49,7 @@ def actualizar_propio_usuario(
     usuario_data: UsuarioUpdate,
     db: Session = Depends(get_db),
     token: HTTPAuthorizationCredentials = Depends(oauth2_scheme)):
+    print("Data usuario: ", usuario_data)
     current_user = get_usuario_from_token(db, token)
     
     return crud_usuarios.update_usuario(db, current_user.id, usuario_data)

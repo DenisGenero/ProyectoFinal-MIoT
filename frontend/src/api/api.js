@@ -17,8 +17,8 @@ api.interceptors.response.use(
   (response) => response,
     (error) => {
       if (error.response && error.response.status === 401) {
-        //localStorage.removeItem("token");
-        logout()
+        localStorage.removeItem("token");
+        window.location.href = "/login";
       }
 return Promise.reject(error); // Rechaza la promesa para que el error pueda ser capturado
 }

@@ -1,5 +1,5 @@
 
-export default function EditarDispositivo({ editForm, handleFormChange, handleUpdate, onCancel }) {
+export default function DispositivoEdit({ editForm, handleFormChange, handleUpdate, onCancel }) {
   return (
     <form onSubmit={handleUpdate}>
       <label>
@@ -22,8 +22,8 @@ export default function EditarDispositivo({ editForm, handleFormChange, handleUp
         <input type="number" name="intervalo" value={editForm.intervalo} onChange={handleFormChange} />
       </label>
       <br /><br />
-      <button type="submit">Guardar cambios</button>
-      <button type="button" onClick={onCancel}>
+      <button type="submit" className="btn-save">Guardar</button>
+      <button type="button" onClick={onCancel} className="btn-cancel">
         Cancelar
       </button>
     </form>

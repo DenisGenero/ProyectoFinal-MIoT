@@ -49,3 +49,27 @@ export const me = async () => {
   return res.data;
 };
 
+export async function getUserInfo() {
+  try {
+    const res = await api.get("/usuarios/me");
+    return res.data;
+  } catch (err) {
+    const msg = err.response?.data?.detail || "Error al obtener usuario";
+    throw new Error(msg);
+  }
+}
+
+
+export async function actualizarUsuario(data) {
+  console.log(data)
+  try {
+    const res = await api.put("/usuarios/actualiza_mismo_usuario", data);
+    return res.data;
+  } catch (err) {
+    const msg = err.response?.data?.detail || "Error al actualizar usuario";
+    throw new Error(msg);
+  }
+}
+
+
+
